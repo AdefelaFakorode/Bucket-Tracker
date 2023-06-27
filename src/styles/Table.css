@@ -1,0 +1,34 @@
+#myBudget, #m-income{
+    color: rgb(89, 255, 0);
+}
+
+.expenses{
+    color: #ff0000;
+}
+
+tr,th{
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  table {
+    width: 300%;
+    border-collapse: collapse;
+  }
+
+  table, th, td {
+    border: 2px solid rgb(255, 255, 255);
+    padding: 20px;
+  }
+
+  h1{
+    height:2px;
+  }
