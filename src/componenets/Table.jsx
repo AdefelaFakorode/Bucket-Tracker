@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import "../styles/Table.css";
 
@@ -25,7 +26,6 @@ function TotalExpensesRow({ tableData }) {
     </tr>
   );
 }
-
 
 function Table() {
   const [tableData, setTableData] = useState([]);
