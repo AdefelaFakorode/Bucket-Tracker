@@ -1,5 +1,9 @@
-#myBudget, #m-income{
+.B-expenses{
     color: rgb(89, 255, 0);
+}
+
+.B-exp{
+  color: rgb(224, 121, 53);
 }
 
 .expenses{

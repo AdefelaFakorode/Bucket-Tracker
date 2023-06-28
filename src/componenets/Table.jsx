@@ -1,13 +1,36 @@
 import { useState } from "react";
 import "../styles/Table.css";
 
+function BudgetRow({ budget }) {
+  return (
+    <tr>
+      <td>Budget:</td>
+      <td className="B-expenses">{budget ? `$${budget}` : ""}</td>
+      <td></td>
+    </tr>
+  );
+}
+
+function TotalExpensesRow({ tableData }) {
+  const totalExpenses = tableData.reduce(
+    (total, item) => total + parseFloat(item.expense),
+    0
+  );
+
+  return (
+    <tr>
+      <td>Total Expenses:</td>
+      <td className="B-exp">{totalExpenses !== 0 ? `$${totalExpenses.toFixed(2)}` : "0"}</td>
+      <td></td>
+    </tr>
+  );
+}
+
+
 function Table() {
   const [tableData, setTableData] = useState([]);
   const [newTrans, setNewTrans] = useState({ title: "", expense: "" });
-
-  //total income
-  //total expenses
-  //add a component that tells user to enter a new transaction
+  const [budget, setBudget] = useState("");
 
   function AddTrans() {
     if (newTrans.title !== "" && newTrans.expense !== "") {
@@ -16,6 +39,7 @@ function Table() {
       setNewTrans({ title: "", expense: "" });
     }
   }
+
   function DeleteTrans(index) {
     const updatedTableData = [...tableData];
     updatedTableData.splice(index, 1);
@@ -36,20 +60,29 @@ function Table() {
             </tr>
           </thead>
           <tbody className="table-body">
+            <BudgetRow budget={budget} />
             {tableData.map((item, index) => (
               <tr key={index}>
                 <td>{item.title}</td>
-                <td className="expenses">{item.expense}</td>
+                <td className="expenses">${item.expense}</td>
                 <td>
                   <button onClick={() => DeleteTrans(index)}>Delete</button>
                 </td>
               </tr>
             ))}
+            <TotalExpensesRow tableData={tableData} />
           </tbody>
         </table>
       </div>
-      
+
       <div className="add-trans">
+        <input
+          type="text"
+          placeholder="Budget"
+          value={budget}
+          onChange={(e) => setBudget(e.target.value)}
+        />
+
         <input
           type="text"
           placeholder="Title"
