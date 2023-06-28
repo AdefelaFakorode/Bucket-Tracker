@@ -78,27 +78,27 @@ function Table() {
       <div className="add-trans">
         <input
           type="text"
-          placeholder="Budget"
+          placeholder="Enter Budget"
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
         />
 
         <input
           type="text"
-          placeholder="Title"
+          placeholder="Enter Title"
           value={newTrans.title}
           onChange={(e) => setNewTrans({ ...newTrans, title: e.target.value })}
         />
 
         <input
           type="text"
-          placeholder="Expense"
+          placeholder="Enter Expense"
           value={newTrans.expense}
           onChange={(e) =>
             setNewTrans({ ...newTrans, expense: e.target.value })
           }
         />
-        <button onClick={AddTrans}>Add Transaction</button>
+        <button  onClick={AddTrans}>Add Transaction</button>
       </div>
     </div>
   );
