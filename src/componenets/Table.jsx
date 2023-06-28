@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../styles/Table.css";
 
 function Table() {
@@ -7,6 +7,7 @@ function Table() {
 
   //total income
   //total expenses
+  //add a component that tells user to enter a new transaction
 
   function AddTrans() {
     if (newTrans.title !== "" && newTrans.expense !== "") {
