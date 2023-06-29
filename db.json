@@ -1,0 +1,24 @@
+{
+    "Expenses": [
+      {
+        "title": "Rent",
+        "expense": "1200"
+      },
+      {
+        "title": "Utilities",
+        "expense": "120"
+      },
+      {
+        "title": "Internet",
+        "expense": "75"
+      },
+      {
+        "title": "Gym Memb.",
+        "expense": "25"
+      },
+      {
+        "title": "Groceries",
+        "expense": "150"
+      }
+    ]
+  }
