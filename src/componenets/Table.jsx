@@ -10,7 +10,7 @@ function BudgetRow({ budget }) {
     </tr>
   );
 }
-
+ 
 function TotalExpensesRow({ tableData }) {
   const totalExpenses = tableData.reduce(
     (total, item) => total + parseFloat(item.expense),
