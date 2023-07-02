@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
+//renders a row in table to display users budget
 function BudgetRow({ budget }) {
   return (
     <tr>
@@ -10,7 +11,8 @@ function BudgetRow({ budget }) {
     </tr>
   );
 }
- 
+
+//renders a row in table to display users total expenses
 function TotalExpensesRow({ tableData }) {
   const totalExpenses = tableData.reduce(
     (total, item) => total + parseFloat(item.expense),
@@ -29,52 +31,48 @@ function TotalExpensesRow({ tableData }) {
 function Table() {
   const [tableData, setTableData] = useState([]);
   const [newTrans, setNewTrans] = useState({ title: "", expense: "" });
-  const [budget, setBudget] = useState("");
-  const [showForm, setShowForm] = useState(false);
+  const [budget, setBudget] = useState(0); //updating user budget
+  const [showForm, setShowForm] = useState(false); //add new trans
 
   useEffect(() => {
-    fetchTableData();
-  }, []);
-
-  useEffect(() => {
-    saveTableData();
-  }, [tableData]);
-
-  useEffect(() => {
-    saveTableData();
-  }, [budget]);
-
-  async function fetchTableData() {
-    try {
-      const response = await fetch("http://localhost:3000/Expenses");
-      const data = await response.json();
-      setTableData(data);
-    } catch (error) {
-      console.error("Error fetching table data:", error);
+    //fetching initial data from API first
+    async function fetchExpenses() {
+      try {
+        const response = await fetch("http://localhost:3000/Expenses"); //getting response
+        const expenses = await response.json(); // parsing/converting
+        setTableData(expenses); //putting expenses in API into Table
+      } catch (error) {
+        console.error("Error fetching data:", error); //if theres an error
+      }
     }
-  }
-
-  async function saveTableData() {
-    try {
-      await fetch("http://localhost:3000/Expenses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(tableData),
-      });
-      console.log("Table data saved successfully");
-    } catch (error) {
-      console.error("Error saving table data:", error);
-    }
-  }
+    fetchExpenses();
+  }, []); //empty array makes it only be called on inital render
 
   function AddTrans() {
     if (newTrans.title !== "" && newTrans.expense !== "") {
-      const updatedTableData = [...tableData, newTrans];
-      setTableData(updatedTableData);
       setNewTrans({ title: "", expense: "" });
       setShowForm(false);
+      const updatedTableData = [...tableData, newTrans];
+      setTableData(updatedTableData);
+
+      // adding parse
+      // eslint-disable-next-line no-inner-declarations
+      async function updateAPI() {
+        try {
+          await fetch("http://localhost:3000/Expenses", {
+            method: "POST",
+            body: JSON.stringify(newTrans),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          console.log("New transaction added to API");
+        } catch (error) {
+          console.error("Error updating API:", error);
+        }
+      }
+
+      updateAPI();
     }
   }
 
@@ -145,12 +143,12 @@ function Table() {
           </thead>
           <tbody className="table-body">
             <BudgetRow budget={budget} />
-            {tableData.map((item, index) => (
-              <tr key={index}>
+            {tableData.map((item) => (
+              <tr key={item.id}>
                 <td>{item.title}</td>
                 <td>${item.expense}</td>
                 <td>
-                  <button onClick={() => DeleteTrans(index)}>Delete</button>
+                  <button onClick={() => DeleteTrans(item.id)}>Delete</button>
                 </td>
               </tr>
             ))}
