@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 function BudgetRow({ budget }) {
   return (
     <tr>
-      <td>Budget:</td>
-      <td>{budget ? `$${budget}` : ""}</td>
+      <td className="text-black font-bold">Budget:</td>
+      <td className="text-green-500 font-bold">{budget ? `$${budget}` : ""}</td>
       <td></td>
     </tr>
   );
@@ -21,8 +21,8 @@ function TotalExpensesRow({ tableData }) {
 
   return (
     <tr>
-      <td>Total Expenses:</td>
-      <td>{totalExpenses !== 0 ? `$${totalExpenses.toFixed(2)}` : "0"}</td>
+      <td className="text-black font-bold">Total Expenses:</td>
+      <td className="text-red-500 font-bold">{totalExpenses !== 0 ? `$${totalExpenses.toFixed(2)}` : "0"}</td>
       <td></td>
     </tr>
   );
@@ -83,13 +83,13 @@ function Table() {
   }
 
   return (
-    <div>
-      <div className="table-container">
-        <h1>Budget Tracker</h1>
-        <h2>Transactions</h2>
+    <div className=" flex-col items-center justify-center">
+      <div className="max-w-md mx-auto">
+        <h1 className="text-4xl font-bold text-black mb-1">Budget Tracker</h1>
+        <h2 className="text-2xl font-bold text-black mb-2">Transactions</h2>
         <div>
           {showForm ? (
-            <form onSubmit={AddTrans}>
+            <form onSubmit={AddTrans} className="mb-4 font-bold">
               <label>
                 Budget:
                 <input
@@ -109,10 +109,11 @@ function Table() {
                     setNewTrans({ ...newTrans, title: e.target.value })
                   }
                   required
+                  className="bg-gray-200"
                 />
               </label>
               <br />
-              <label>
+              <label className="font-bold">
                 Expense Amount:
                 <input
                   type="number"
@@ -121,34 +122,48 @@ function Table() {
                     setNewTrans({ ...newTrans, expense: e.target.value })
                   }
                   required
+                  className="bg-gray-200"
                 />
               </label>
               <br />
-              <button type="submit">Submit</button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-3"
+              >
+                Submit
+              </button>
             </form>
           ) : (
-            <button className="add-exp" onClick={() => setShowForm(true)}>
+            <button
+              className="mb-7 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              onClick={() => setShowForm(true)}
+            >
               Add Expenses
             </button>
           )}
         </div>
-
-        <table>
+  
+        <table className="border-separate border border-gray-500 border-spacing-y-5 border-spacing-x-11 ">
           <thead className="table-head">
             <tr>
-              <th>Title</th>
-              <th>Total Expenses</th>
-              <th>Action</th>
+              <th className="text-black text-xl font-bold">Title</th>
+              <th className="text-black text-xl font-bold">Total Expenses</th>
+              <th className="text-black text-xl font-bold">Action</th>
             </tr>
           </thead>
           <tbody className="table-body">
             <BudgetRow budget={budget} />
             {tableData.map((item) => (
               <tr key={item.id}>
-                <td>{item.title}</td>
-                <td>${item.expense}</td>
+                <td className="text-black font-bold">{item.title}</td>
+                <td className="text-black font-bold">${item.expense}</td>
                 <td>
-                  <button onClick={() => DeleteTrans(item.id)}>Delete</button>
+                  <button
+                    onClick={() => DeleteTrans(item.id)}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded-full"
+                  >
+                    X
+                  </button>
                 </td>
               </tr>
             ))}
@@ -158,6 +173,7 @@ function Table() {
       </div>
     </div>
   );
+  
 }
 
 export default Table;
