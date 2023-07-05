@@ -24,21 +24,6 @@
       "id": 5,
       "title": "Entertainment",
       "expense": "25.00"
-    },
-    {
-      "id": 6,
-      "title": "Something",
-      "expense": "5"
-    },
-    {
-      "id": 7,
-      "title": "xx",
-      "expense": "2"
-    },
-    {
-      "id": 8,
-      "title": "Something",
-      "expense": "1"
     }
   ]
 }
