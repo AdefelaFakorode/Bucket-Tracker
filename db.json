@@ -1,24 +1,29 @@
 {
   "Expenses": [
     {
-      "title": "Something_1",
-      "expense": "1200"
+      "id": 1,
+      "title": "Rent",
+      "expense": "1350.00"
     },
     {
-      "title": "Something_2",
-      "expense": "200"
+      "id": 2,
+      "title": "Groceries",
+      "expense": "125.36"
     },
     {
-      "title": "Something_3",
-      "expense": "12"
+      "id": 3,
+      "title": "Transportation",
+      "expense": "100.00"
     },
     {
-      "title": "Something_4",
-      "expense": "600"
+      "id": 4,
+      "title": "Gym",
+      "expense": "75.00"
     },
     {
-      "title": "Something_5",
-      "expense": "100"
+      "id": 5,
+      "title": "Entertainment",
+      "expense": "25.00"
     }
   ]
 }
