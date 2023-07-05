@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Rent",
-      "expense": "1350.00"
+      "expense": "1350"
     },
     {
       "id": 2,
@@ -24,6 +24,26 @@
       "id": 5,
       "title": "Entertainment",
       "expense": "25.00"
+    },
+    {
+      "id": 6,
+      "title": "Something",
+      "expense": "5"
+    },
+    {
+      "id": 7,
+      "title": "x",
+      "expense": "1"
+    },
+    {
+      "id": 8,
+      "title": "xxx",
+      "expense": "1"
+    },
+    {
+      "id": 9,
+      "title": "ll",
+      "expense": "50"
     }
   ]
 }

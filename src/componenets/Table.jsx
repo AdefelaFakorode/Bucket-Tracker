@@ -48,7 +48,8 @@ function Table() {
     fetchExpenses();
   }, []);
 
-  function AddTrans() {
+  function AddTrans( event ) {
+    event.preventDefault();
     if (newTrans.title !== "" && newTrans.expense !== "") {
       const expenseAmount = parseFloat(newTrans.expense);
       const updatedBudget = budget - expenseAmount;
