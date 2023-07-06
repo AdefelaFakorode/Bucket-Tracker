@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
+//rendering budget row
 function BudgetRow({ budget }) {
   return (
     <tr>
@@ -10,7 +11,7 @@ function BudgetRow({ budget }) {
     </tr>
   );
 }
-
+//rendering total expense row
 function TotalExpensesRow({ tableData }) {
   const totalExpenses = tableData.reduce(
     (total, item) => total + parseFloat(item.expense),
@@ -28,13 +29,18 @@ function TotalExpensesRow({ tableData }) {
   );
 }
 
+//tableData: represents array of transactions
+//newTran: stores the details of a new trans
+//budget: maintains budget
+//showForm: setting id counter + 1
 function Table() {
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState([]); 
   const [newTrans, setNewTrans] = useState({ id: 0, title: "", expense: "" });
   const [budget, setBudget] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [counter, setCounter] = useState(0);
 
+  //fetching initial data from API first
   useEffect(() => {
     async function fetchExpenses() {
       try {
@@ -45,11 +51,11 @@ function Table() {
         console.error("Error fetching data:", error);
       }
     }
-    fetchExpenses();
-  }, []);
+    fetchExpenses(); 
+  }, []); //empty array makes it only be called on inital render, fetches initial data from API
 
   function AddTrans( event ) {
-    event.preventDefault();
+    event.preventDefault(); //page doesnt reload after alert 
     if (newTrans.title !== "" && newTrans.expense !== "") {
       const expenseAmount = parseFloat(newTrans.expense);
       const updatedBudget = budget - expenseAmount;
@@ -67,6 +73,7 @@ function Table() {
       setTableData(updatedTableData);
       setBudget(updatedBudget);
 
+      //updating API after new transaction has been added
       // eslint-disable-next-line no-inner-declarations
       async function updateAPI() {
         try {
@@ -109,19 +116,21 @@ function Table() {
   }
 
   function UpdateTrans(id, title, expense) {
-    const updatedExpense = parseFloat(expense);
-    const updatedTableData = tableData.map((item) =>
-      item.id === id ? { ...item, title, expense: updatedExpense, isEditing: false } : item
-    );
-    setTableData(updatedTableData);
-  
-    const updatedTotalExpenses = updatedTableData.reduce(
-      (total, item) => total + parseFloat(item.expense),
-      0
-    );
-    const updatedBudget = parseFloat(budget) + parseFloat(expense) - updatedTotalExpenses;
-    setBudget(updatedBudget.toFixed(2));
-  }
+  const updatedExpense = parseFloat(expense);
+  const updatedTableData = tableData.map((item) =>
+    item.id === id ? { ...item, title, expense: updatedExpense, isEditing: false } : item
+  );
+  setTableData(updatedTableData);
+
+  const updatedTotalExpenses = updatedTableData.reduce(
+    (total, item) => total + parseFloat(item.expense),
+    0
+  );
+  const originalExpense = tableData.find((item) => item.id === id).expense;
+  const updatedBudget = parseFloat(budget) - parseFloat(originalExpense) + updatedTotalExpenses;
+  setBudget(updatedBudget.toFixed(2));
+}
+
   
 
   return (
@@ -143,14 +152,14 @@ function Table() {
                 <tr key={item.id}>
                   <td>
                     <input
-                      className="text-[#cecece] font-bold"
+                      className="text-[#82277c] font-bold w-20"
                       defaultValue={item.title}
                       onChange={(e) => (item.title = e.target.value)}
                     />
                   </td>
                   <td>
                     <input
-                      className="text-[#cecece] font-bold"
+                      className="text-[#82277c] font-bold w-20"
                       defaultValue={item.expense}
                       onChange={(e) => (item.expense = e.target.value)}
                     />
